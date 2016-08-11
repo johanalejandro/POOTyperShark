@@ -100,6 +100,17 @@ public class Animal extends Thread {
             cadena.getChildren().add(l);
         }
     }
+    public Boolean validarLetra(int indice, String letra){
+        if(((Label) this.cadena.getChildren().get(indice)).getText().equals(letra) ){
+            Reproductor.play("tecleo.mp3",1);
+            return true;
+        }
+        
+        Reproductor.play("error.mp3",0.9);
+        velocidad = velocidad-5;
+        //moverAnimal();
+        return false;
+    }
     
     public void pintarLetra(String l){
         for(Node letra: cadena.getChildren()){

@@ -34,5 +34,20 @@ public class Animal extends Thread {
         velocidad = millis;
         
     }
+    public void setAnimal(String palabra, ImageView imagen){
+        crearPalabra(palabra);
+        ancho = imagen.getFitWidth();
+        cuerpo.getChildren().addAll(imagen,cadena);
+    }
+    public final void crearPalabra(String palabra) {
+        cadena = new HBox();
+        cadena.setAlignment(Pos.CENTER);
+        for (int i=0; i< palabra.length();i++ ){
+            Label l = new Label(Character.toString(palabra.charAt(i)));
+            l.setStyle("-fx-text-fill: white;-fx-font-size: 13;-fx-font-weight: bold");
+            cadena.getChildren().add(l);
+        }
+    }
+    
     
 }

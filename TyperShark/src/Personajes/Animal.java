@@ -140,6 +140,28 @@ public class Animal extends Thread {
         crearPalabra(palabra);
         cuerpo.getChildren().add(cadena);
     }
+    public boolean destruir(){
+        if(letrasAcertadas==this.cadena.getChildren().size()){            
+            this.vida = false;
+            System.out.println("Animal muerto");
+            letrasAcertadas = 0;
+            selected.set(false);
+            //tl.stop();
+            tl = new Timeline();
+            //
+            tl.setCycleCount(1);
+            tl.getKeyFrames().add(new KeyFrame(Duration.seconds(1), e->{
+                    //que ponemos aqui?
+                },
+                new KeyValue(cuerpo.translateYProperty(), cuerpo.getTranslateY()-30.05,Interpolator.SPLINE(0.295,0.800,0.305,1.000)),
+                new KeyValue(cuerpo.opacityProperty(), 0f)
+            ));            
+            tl.play();
+            Reproductor.play("explosion.mp3",1);
+            return true;
+        }
+        return false;
+    }
     
     
     @Override 

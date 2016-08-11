@@ -132,6 +132,29 @@ public class Animal extends Thread {
     }
     
     
-    
+    @Override 
+    public void run() {
+        while (vida){
+            Platform.runLater(new Runnable() {
+                @Override
+                public void run() {
+                    
+                    cuerpo.setTranslateX(cuerpo.getTranslateX()-3);
+                    if(cuerpo.translateXProperty().lessThan(-280).getValue()){
+                        vida = false;
+                    }
+                    Oceano.actualizarOceano();
+                    //System.out.println("Posicion: "+cuerpo.getTranslateX());
+                }
+            });
+            
+            try {
+                Thread.sleep((int) velocidad);
+            } catch (InterruptedException ex) {
+                Logger.getLogger(Animal.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        
+    }
     
 }

@@ -144,7 +144,6 @@ public class Animal extends Thread {
                         vida = false;
                     }
                     Oceano.actualizarOceano();
-                    //System.out.println("Posicion: "+cuerpo.getTranslateX());
                 }
             });
             

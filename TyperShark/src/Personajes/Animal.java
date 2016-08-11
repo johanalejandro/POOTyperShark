@@ -108,7 +108,6 @@ public class Animal extends Thread {
         
         Reproductor.play("error.mp3",0.9);
         velocidad = velocidad-5;
-        //moverAnimal();
         return false;
     }
     

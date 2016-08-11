@@ -9,25 +9,6 @@ package Personajes;
  *
  * @author Dario Ntn Carpio
  */
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javafx.animation.Animation;
-import javafx.animation.Interpolator;
-import javafx.animation.KeyFrame;
-import javafx.animation.KeyValue;
-import javafx.animation.Timeline;
-import javafx.application.Platform;
-import javafx.beans.property.SimpleBooleanProperty;
-import javafx.geometry.Pos;
-import javafx.scene.Node;
-import javafx.scene.control.Label;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.Pane;
-import javafx.scene.layout.StackPane;
-import javafx.util.Duration;
- 
 public class Animal extends Thread {
     
     
@@ -53,6 +34,38 @@ public class Animal extends Thread {
         velocidad = millis;
         
     }
+    public Pane getCuerpo(){
+        return cuerpo;
+    }
+    public int getLetrasAcertadas(){
+        return letrasAcertadas;
+    }
+    public void setLetrasAcertadas(int n){
+        letrasAcertadas = n;
+    }
+    public boolean getVida(){
+        return vida;
+    }
+    
+    public void setVida(boolean vida){
+        this.vida = vida;
+    }
+    
+    public HBox getCadena(){
+        return cadena;
+    }
+    
+    public void setSelected(boolean selected){
+        this.selected.setValue(selected);
+    }
+    
+    protected Timeline getTimeLine(){
+        return tl;
+    }
+        
+    protected double getAncho(){
+        return ancho;
+    }
     public void setAnimal(String palabra, ImageView imagen){
         crearPalabra(palabra);
         ancho = imagen.getFitWidth();
@@ -65,20 +78,6 @@ public class Animal extends Thread {
             Label l = new Label(Character.toString(palabra.charAt(i)));
             l.setStyle("-fx-text-fill: white;-fx-font-size: 13;-fx-font-weight: bold");
             cadena.getChildren().add(l);
-        }
-    }
-    
-   
-    
-    public void pintarLetra(String l){
-        for(Node letra: cadena.getChildren()){
-            Label lab = (Label) letra;
-            if (l.equals(lab.getText())){
-                if (!(lab.getStyle().equals("-fx-text-fill: red;-fx-font-weight: bold;"))){
-                    letra.setStyle("-fx-text-fill: red;-fx-font-weight: bold;");
-                    return;
-                }
-            }
         }
     }
     

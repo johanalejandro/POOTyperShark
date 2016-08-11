@@ -112,6 +112,9 @@ public class Animal extends Thread {
             }
         }
     }
+    public SimpleBooleanProperty isSelected(){
+        return selected;
+    }
     public void seleccionar(String letra){
         if( !this.cadena.getChildren().isEmpty()){
             if(letra.equals(((Label) this.cadena.getChildren().get(0)).getText())){
@@ -127,6 +130,8 @@ public class Animal extends Thread {
         crearPalabra(palabra);
         cuerpo.getChildren().add(cadena);
     }
+    
+    
     
     
 }

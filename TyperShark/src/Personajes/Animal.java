@@ -28,7 +28,6 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.util.Duration;
-import sonidos.Reproductor;
 
 public class Animal extends Thread {
     
@@ -101,16 +100,6 @@ public class Animal extends Thread {
             cadena.getChildren().add(l);
         }
     }
-    public Boolean validarLetra(int indice, String letra){
-        if(((Label) this.cadena.getChildren().get(indice)).getText().equals(letra) ){
-            Reproductor.play("tecleo.mp3",1);
-            return true;
-        }
-        
-        Reproductor.play("error.mp3",0.9);
-        velocidad = velocidad-5;
-        return false;
-    }
     
     public void pintarLetra(String l){
         for(Node letra: cadena.getChildren()){
@@ -122,6 +111,21 @@ public class Animal extends Thread {
                 }
             }
         }
+    }
+    public void seleccionar(String letra){
+        if( !this.cadena.getChildren().isEmpty()){
+            if(letra.equals(((Label) this.cadena.getChildren().get(0)).getText())){
+                if(!(this.isSelected().getValue())){
+                    this.selected.set(true);                    
+                }
+            }            
+        }
+    }
+    
+    protected void setPalabra(String palabra){
+        cuerpo.getChildren().remove(cadena);
+        crearPalabra(palabra);
+        cuerpo.getChildren().add(cadena);
     }
     
     

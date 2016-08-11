@@ -9,6 +9,30 @@ package Personajes;
  *
  * @author Dario Ntn Carpio
  */
-public class Animal {
+public class Animal extends Thread {
+    
+    
+    private HBox cadena;
+    private StackPane cuerpo;
+    private SimpleBooleanProperty selected;    
+    private int letrasAcertadas;
+    private Timeline tl;
+    private KeyFrame kf;
+    private boolean vida;
+    private int puntos;
+    private int velocidad;
+    private double ancho;
+    
+    public Animal(int millis){
+        super("animal");
+        this.vida = true;
+        cadena = new HBox();
+        cuerpo = new StackPane();
+        letrasAcertadas = 0;
+        this.selected = new SimpleBooleanProperty(false);
+        cadena.setAlignment(Pos.CENTER);
+        velocidad = millis;
+        
+    }
     
 }

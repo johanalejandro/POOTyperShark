@@ -28,7 +28,7 @@ public class Intro extends Parent {
     private static final int STATE_BUTTONS = 3;
     private static final int SUN_AMPLITUDE_X = Constantes.SCREEN_WIDTH * 2 / 3;
     private static final int SUN_AMPLITUDE_Y = Constantes.SCREEN_WIDTH / 2;
-    private ImageView background,typer,typerShadow,shark,sharkShadow,poo,pooShadow,sun;
+    private ImageView background,typer,typerShadow,shark,sharkShadow,poo,pooShadow,sol;
     private Timeline timeline;
     private int state, stateArg;
     private ImageView[] NODES, NODES_SHADOWS;
@@ -86,9 +86,9 @@ public class Intro extends Parent {
                 }
                 double sunX = Constantes.SCREEN_WIDTH / 2 + x;
                 double sunY = Constantes.SCREEN_HEIGHT / 2 - y;
-                sun.setTranslateX(sunX - sun.getImage().getWidth() / 2);
-                sun.setTranslateY(sunY - sun.getImage().getHeight() / 2);
-                sun.setRotate(-stateArg);
+                sol.setTranslateX(sunX - sol.getImage().getWidth() / 2);
+                sol.setTranslateY(sunY - sol.getImage().getHeight() / 2);
+                sol.setRotate(-stateArg);
                 for (int i = 0; i < NODES.length; i++) {
                     NODES_SHADOWS[i].setOpacity(y / SUN_AMPLITUDE_Y / 2);
                     NODES_SHADOWS[i].setTranslateX(NODES[i].getTranslateX()
@@ -180,9 +180,9 @@ public class Intro extends Parent {
         pooShadow = new ImageView();
         pooShadow.setImage(new Image("/imagenes/pooshadow.png"));
         pooShadow.setTranslateX(-1000);
-        sun = new ImageView();
-        sun.setImage(new Image("/imagenes/sun.png"));
-        sun.setTranslateX(-1000);
+        sol = new ImageView();
+        sol.setImage(new Image("/imagenes/sun.png"));
+        sol.setTranslateX(-1000);
         crearBotones();
         NODES = new ImageView[]{typer, shark, poo};
         NODES_SHADOWS = new ImageView[]{typerShadow, sharkShadow, pooShadow};
@@ -190,7 +190,7 @@ public class Intro extends Parent {
         group.getChildren().add(background);
         group.getChildren().addAll(NODES_SHADOWS);
         group.getChildren().addAll(NODES);
-        group.getChildren().addAll(sun, botones);
+        group.getChildren().addAll(sol, botones);
         getChildren().add(group);
     }
 

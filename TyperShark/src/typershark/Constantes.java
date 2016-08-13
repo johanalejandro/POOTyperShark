@@ -12,8 +12,8 @@ package typershark;
 public class Constantes {
     public static final int VEL_TIBURON = 75;
     public static final int VEL_PIRAÑA = 30;
-    public static final double WIDTH_SHARK = 200;
-    public static final double HEIGHT_SHARK = 70;
+    public static final double WIDTH_SHARK = 290;
+    public static final double HEIGHT_SHARK = 150;
     public static final double WIDTH_PIRAGNE = 70;
     public static final double HEIGHT_PIRAGNE = 60;
     public static final int SCREEN_WIDTH = 960;

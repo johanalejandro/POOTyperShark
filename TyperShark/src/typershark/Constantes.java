@@ -18,4 +18,5 @@ public class Constantes {
     public static final double HEIGHT_PIRAGNE = 60;
     public static final int SCREEN_WIDTH = 960;
     public static final int SCREEN_HEIGHT = 670;
+    public static final Duration ANIMATION_TIME = Duration.millis(40);
 }

@@ -31,7 +31,13 @@ public class Piraña extends Animal{
         return ""+(char)random;
     }
     
-    public int getPuntos(){
+    @Override
+    public int getPuntos() {
         return puntos;
+    }
+    
+    @Override
+    protected double getLimite() {
+        return -360;
     }
 }

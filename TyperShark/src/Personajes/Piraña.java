@@ -11,7 +11,7 @@ import typershark.Constantes;
 
 /**
  *
- * @author Dario Ntn Carpio
+ * @author Dario Ntn Carpio, Johan A Canales, Kevin O Palacios
  */
 public class Piraña extends Animal{
     private final int puntos = 55;    

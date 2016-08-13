@@ -29,7 +29,7 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.util.Duration;
 
-public class Animal extends Thread {
+public abstract class Animal extends Thread {
     
     
     private HBox cadena;
@@ -41,7 +41,7 @@ public class Animal extends Thread {
     private boolean vida;
     private int puntos;
     private int velocidad;
-    private double ancho;
+    private boolean cruzo;
     
     public Animal(int millis){
         super("animal");
@@ -52,8 +52,13 @@ public class Animal extends Thread {
         this.selected = new SimpleBooleanProperty(false);
         cadena.setAlignment(Pos.CENTER);
         velocidad = millis;
-        
+        cruzo = false;
     }
+    
+    public abstract int getPuntos();
+    
+    protected abstract double getLimite();
+    
     public Pane getCuerpo(){
         return cuerpo;
     }
@@ -82,13 +87,13 @@ public class Animal extends Thread {
     protected Timeline getTimeLine(){
         return tl;
     }
-        
-    protected double getAncho(){
-        return ancho;
+    
+    public boolean getCruzo(){
+        return cruzo;
     }
+        
     public void setAnimal(String palabra, ImageView imagen){
         crearPalabra(palabra);
-        ancho = imagen.getFitWidth();
         cuerpo.getChildren().addAll(imagen,cadena);
     }
     public final void crearPalabra(String palabra) {
@@ -146,9 +151,9 @@ public class Animal extends Thread {
             System.out.println("Animal muerto");
             letrasAcertadas = 0;
             selected.set(false);
-            //tl.stop();
+            
             tl = new Timeline();
-            //
+            
             tl.setCycleCount(1);
             tl.getKeyFrames().add(new KeyFrame(Duration.seconds(1), e->{
                     //que ponemos aqui?
@@ -174,13 +179,15 @@ public class Animal extends Thread {
                     cuerpo.setTranslateX(cuerpo.getTranslateX()-3);
                     if(cuerpo.translateXProperty().lessThan(-280).getValue()){
                         vida = false;
+                        cruzo = true;
+                        cuerpo.setOpacity(0);
                     }
-                    Oceano.actualizarOceano();
+                    
                 }
             });
             
             try {
-                Thread.sleep((int) velocidad);
+                Animal.sleep((int) velocidad);
             } catch (InterruptedException ex) {
                 Logger.getLogger(Animal.class.getName()).log(Level.SEVERE, null, ex);
             }

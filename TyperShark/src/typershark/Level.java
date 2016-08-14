@@ -86,3 +86,20 @@ public class Level extends Thread{
         root.getChildren().add(background);
         
     }
+    public void actualizarVidas(int jugadorVidas){
+        vidas.getChildren().clear();
+        for ( int lifes = 0 ; lifes < jugadorVidas ; lifes++){
+            Image image= new Image("/imagenes/life.png");
+            ImageView content = new ImageView(image);
+            this.vidas.getChildren().add(content);
+        }
+    }
+    
+    public void upLevel(){
+        Nnivel.set(Nnivel.get()+1);
+        grupo = 0;
+    }
+    
+    public BorderPane getRoot(){
+        return root;
+    }

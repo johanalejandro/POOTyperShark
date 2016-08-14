@@ -16,10 +16,19 @@ public class Buceador {
     private SimpleIntegerProperty vidas;
     private String nombre;
     private SimpleIntegerProperty puntaje;
+    private ImageView img;
     
     public Buceador(){
         vidas = new SimpleIntegerProperty(Constantes.MAX_LIVES);
         puntaje=new SimpleIntegerProperty(0);
+        img = new ImageView(new Image("/imagenes/diver.gif"));
+        img.setFitWidth(150);
+        img.setFitHeight(70);
+        img.resize(70, 20);
+    }
+    
+    public ImageView getImagen(){
+        return img;
     }
 
     public SimpleIntegerProperty getVidas() {

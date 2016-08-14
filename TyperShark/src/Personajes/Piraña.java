@@ -20,7 +20,7 @@ public class Piraña extends Animal{
         super(Constantes.VEL_PIRAÑA);
         int x, y;
         x = (int)(Math.random()*250) + 620;
-        y = (int)(Math.random()*150) + 5;
+        y = (int)(Math.random()*Constantes.SCREEN_HEIGHT/2);  
         this.setPuntos(puntos);
         this.setPosicionInicial(x, y);
         this.setAnimal(getLetraRandom(), new ImageView(new Image("/imagenes/piraña.png",Constantes.WIDTH_PIRAGNE,Constantes.HEIGHT_PIRAGNE,true,true)));
@@ -38,6 +38,6 @@ public class Piraña extends Animal{
     
     @Override
     protected double getLimite() {
-        return -360;
+        return -1*Constantes.SCREEN_WIDTH/2 +250;
     }
 }

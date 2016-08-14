@@ -103,3 +103,135 @@ public class Level extends Thread{
     public BorderPane getRoot(){
         return root;
     }
+    
+    private void crearInfoPanel() {
+        vidas = new HBox();
+        Font f = new Font("Impact", 18);
+        ImageView img = new ImageView(new Image("/imagenes/diver.gif"));
+        img.setFitWidth(150);
+        img.setFitHeight(70);
+        img.resize(70, 20);
+        root.setLeft(img);
+        infoPanel = new HBox();
+        infoPanel.setSpacing(30);
+        nivelCaption = new Text(" NIVEL  ");
+        nivelCaption.setFill(Constantes.CAPTION_COLOR);
+        
+        nivelCaption.setFont(f);
+        nivel = new Text(" 1");
+        nivel.setFont(f);
+        nivel.setFill(Constantes.VALUE_COLOR);
+        Nnivel.addListener((ov,n1,n0)->{
+            if (n1.intValue()!=n0.intValue()){
+                nivel.setText(""+n0.intValue());
+            }
+        });
+        puntajeCaption = new Text(" SCORE  ");
+        puntajeCaption.setFill(Constantes.CAPTION_COLOR);
+        puntajeCaption.setFont(f);
+        score = new Text(" 0");
+        score.setFill(Constantes.VALUE_COLOR);
+        score.setFont(f);
+        oceano.getBuceador().getPuntaje().addListener((ov,n1,n0)->{
+            if (n1.intValue()!=n0.intValue()){
+                score.setText(""+n0.intValue());
+                booster += (n0.intValue()-n1.intValue());
+                if (booster>=1000){
+                    System.out.println("\t-Booster Ready-");
+                    anunciarBooster(true);
+                }
+            }
+        });
+        livesCaption = new Text(" VIDAS  ");
+        livesCaption.setFill(Constantes.CAPTION_COLOR);
+        livesCaption.setFont(f);
+        ImageView logo = new ImageView(new Image("/imagenes/logo.png"));
+        logo.setFitHeight(80);
+        logo.setFitWidth(100);
+        vidas.setSpacing(2);
+        actualizarVidas(Constantes.MAX_LIVES);
+        oceano.getBuceador().getVidas().addListener((ov,n1,n0)->{
+            if (n1.intValue()!=n0.intValue()){
+                actualizarVidas(n0.intValue());
+                if (n0.intValue()==0){
+                    System.out.println("\tFIN");
+                    TyperShark.getMainFrame().changeState(2);
+                }
+            }
+        });
+        infoPanel.getChildren().addAll(logo, new HBox(nivelCaption,nivel),new HBox(puntajeCaption,score),new HBox(livesCaption,vidas));
+        infoPanel.setStyle("-fx-border-color: black;-fx-border-insets: 5;"+
+                            "    -fx-border-width: 5;" +
+                            "    -fx-padding: 15 30 15 30;" +
+                            "    -fx-background-color:" +
+                            "    linear-gradient(#686868 0%, #232723 25%, #373837 75%, #757575 100%)," +
+                            "    linear-gradient(#020b02, #3a3a3a)," +
+                            "    linear-gradient(#9d9e9d 0%, #6b6a6b 20%, #343534 80%, #242424 100%);" +
+                            "    -fx-background-insets: 0,1,4;" +
+                            "    -fx-background-radius: 9,8,5;"); 
+        for (Node i: infoPanel.getChildren()){
+            if ( !i.equals(logo)){
+                i.setTranslateY(25);
+            }
+        }
+        infoPanel.setPrefWidth(Constantes.SCREEN_WIDTH);
+        root.setPrefHeight(Constantes.SCREEN_HEIGHT);
+        root.setTop(infoPanel);
+    }
+   
+    
+    public void anunciarBooster(Boolean aviso){
+        if (aviso){
+            killer.setOpacity(1);
+        }else{
+            killer.setOpacity(0);
+        }
+    }
+    
+   
+    
+    @Override
+    public void run(){                                        
+        while (Nnivel.get() <= Constantes.MAX_LEVEL){
+            while (grupo<=Constantes.GRUPOS_ANIMALESxNIVEL){
+                if (oceano.isEmpty()){                
+                    System.out.println("GRUPO "+grupo);                
+                    Platform.runLater(new Runnable() {
+                        @Override 
+                        public void run() {
+                            root.requestFocus();                        
+
+                            for(int i=0;i<(int)(Math.random()*(Constantes.MAX_ANIMALESxGRUPO-Constantes.MIN_ANIMALESxGRUPO))+Constantes.MIN_ANIMALESxGRUPO;i++){
+                                switch ((int)(Math.random()*3)){
+                                    case 0:
+                                        oceano.addAnimal(new TiburonNegro());
+                                        break;
+                                    case 1:
+                                        oceano.addAnimal(new TiburonBlanco());
+                                        break;
+                                    case 2:
+                                        oceano.addAnimal(new Piraña());
+                                        break;
+                                }
+                            }
+                            root.setCenter(oceano.getAnimales());
+                        }
+                    });                
+                    grupo++;
+                    try {
+                        Level.sleep(5000);
+                    } catch (InterruptedException ex) {
+                        Logger.getLogger(Level.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+                    }
+                }               
+            }
+            if (oceano.isEmpty()){
+                upLevel();
+            }
+        }
+    }
+  
+    public String getScore() {
+        return score.getText();
+    }
+}

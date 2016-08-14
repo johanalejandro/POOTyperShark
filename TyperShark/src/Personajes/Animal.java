@@ -12,7 +12,6 @@ package Personajes;
  
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javafx.animation.Animation;
 import javafx.animation.Interpolator;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
@@ -76,6 +75,10 @@ public abstract class Animal extends Thread {
         this.vida = vida;
     }
     
+    public void setVelocidad(int millis){
+        velocidad = millis;
+    }
+    
     public HBox getCadena(){
         return cadena;
     }
@@ -101,7 +104,7 @@ public abstract class Animal extends Thread {
         cadena.setAlignment(Pos.CENTER);
         for (int i=0; i< palabra.length();i++ ){
             Label l = new Label(Character.toString(palabra.charAt(i)));
-            l.setStyle("-fx-text-fill: white;-fx-font-size: 13;-fx-font-weight: bold");
+            l.setStyle("-fx-text-fill: white;-fx-font: bold 17 serif");
             cadena.getChildren().add(l);
         }
     }
@@ -112,7 +115,9 @@ public abstract class Animal extends Thread {
         }
         
         Reproductor.play("error.mp3",0.9);
-        velocidad = velocidad-5;
+        if (velocidad > 5){
+            velocidad = velocidad-5;
+        }
         return false;
     }
     
@@ -120,8 +125,8 @@ public abstract class Animal extends Thread {
         for(Node letra: cadena.getChildren()){
             Label lab = (Label) letra;
             if (l.equals(lab.getText())){
-                if (!(lab.getStyle().equals("-fx-text-fill: red;-fx-font-weight: bold;"))){
-                    letra.setStyle("-fx-text-fill: red;-fx-font-weight: bold;");
+                if (!(lab.getStyle().equals("-fx-text-fill: red;-fx-font: bold 17 serif"))){
+                    letra.setStyle("-fx-text-fill: red;-fx-font: bold 17 serif");
                     return;
                 }
             }
@@ -156,7 +161,7 @@ public abstract class Animal extends Thread {
             
             tl.setCycleCount(1);
             tl.getKeyFrames().add(new KeyFrame(Duration.seconds(1), e->{
-                    //que ponemos aqui?
+                    Oceano.actualizarOceano();
                 },
                 new KeyValue(cuerpo.translateYProperty(), cuerpo.getTranslateY()-30.05,Interpolator.SPLINE(0.295,0.800,0.305,1.000)),
                 new KeyValue(cuerpo.opacityProperty(), 0f)
@@ -177,10 +182,11 @@ public abstract class Animal extends Thread {
                 public void run() {
                     
                     cuerpo.setTranslateX(cuerpo.getTranslateX()-3);
-                    if(cuerpo.translateXProperty().lessThan(-280).getValue()){
+                    if(cuerpo.translateXProperty().lessThan(getLimite()).getValue()){
                         vida = false;
                         cruzo = true;
-                        cuerpo.setOpacity(0);
+                        cuerpo.setOpacity(0.0);
+                        Oceano.actualizarOceano();
                     }
                     
                 }

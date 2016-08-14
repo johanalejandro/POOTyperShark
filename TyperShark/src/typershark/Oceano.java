@@ -13,7 +13,6 @@ import java.util.Comparator;
 import java.util.Iterator;
 import java.util.Scanner;
 import javafx.scene.layout.Pane;
-import javafx.scene.layout.VBox;
 import sonidos.Reproductor;
 
 /**
@@ -24,10 +23,18 @@ public class Oceano {
     private static ArrayList<Animal> animales;
     private static ArrayList<String> palabras;
     private static Pane animals;
+    private static boolean empty;
+    private static int pirañasOut;
+    private static Buceador  jugador;
+    private int multiplicadorVelocidad;
     
     public Oceano(){
         animales = new ArrayList<Animal>();
         animals = new Pane();
+        empty = true;
+        pirañasOut = 0;
+        multiplicadorVelocidad = 1;
+        jugador = new Buceador();
         cargarPalabras();
     }
     
@@ -41,21 +48,48 @@ public class Oceano {
     }
     
     public void addAnimal(Animal animal){
-        actualizarOceano();
         System.out.println("addAnimal");      
-        animales.add(animal);    
+        animal.setVelocidad((int)animal.getVelocidad()/multiplicadorVelocidad);
+        animales.add(animal);
         animal.start();
+    }
+    
+    public void setVelocidades(int multiplicador){
+        multiplicadorVelocidad = multiplicador;
     }
     
     public static void actualizarOceano(){
         Iterator<Animal> it = animales.iterator();
         while (it.hasNext()){
             Animal a = it.next();
-            if (!a.getVida()){
-                it.remove();
-                //animals.getChildren().remove(a.getCuerpo());
-                System.out.println("removido");
+            if (!a.getVida()){   
+                if (a.getCruzo()){
+                    if (a.getClass().equals(Piraña.class)){
+                        pirañasOut++;                            
+                    }
+                    if (pirañasOut==3 || !a.getClass().equals(Piraña.class)){
+                        System.out.println("Pierde una vida");
+                        jugador.setVida(-1);
+                        pirañasOut = pirañasOut==3? 0: pirañasOut;
+                    }
+                }else{
+                    jugador.setPuntaje(a.getPuntos());
+                }
+                it.remove();                
+                animals.getChildren().remove(a.getCuerpo());
+                System.out.println("Removido -SizeLista: "+animales.size()+" -SizePane: "+animals.getChildren().size());
             }
+        }
+    }
+    
+    public void killThem(){
+        for (Animal a:animales){
+            if (a.getClass().equals(TiburonNegro.class)){
+                TiburonNegro tn = (TiburonNegro)a;
+                tn.setPalabrasRestantes(1);                
+            }
+            a.setLetrasAcertadas(a.getCadena().getChildren().size());
+            a.destruir();
         }
     }
     
@@ -112,5 +146,9 @@ public class Oceano {
     public static String getPalabraRandom(){
         int random = (int)(Math.random()*(palabras.size()-1));
         return palabras.get(random);
+    }
+    
+    public boolean isEmpty(){
+        return (animals.getChildren().isEmpty() && animales.isEmpty());
     }
 }

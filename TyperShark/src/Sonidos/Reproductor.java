@@ -17,6 +17,8 @@ import typershark.TyperShark;
  */
 public class Reproductor {
     
+    private static MediaPlayer playerI;
+    
     public static void play(String archivo, double volumen){
         final URL resource = TyperShark.class.getResource("/sonidos/"+archivo);
         MediaPlayer player = new MediaPlayer(new Media(resource.toString()));        
@@ -26,9 +28,13 @@ public class Reproductor {
     
     public static void playIndefinite(String archivo, double volumen){
         final URL resource = TyperShark.class.getResource("/sonidos/"+archivo);
-        MediaPlayer player = new MediaPlayer(new Media(resource.toString()));                 
-        player.setCycleCount(Animation.INDEFINITE);
-        player.setVolume(volumen);
-        player.play();        
+        playerI = new MediaPlayer(new Media(resource.toString()));                 
+        playerI.setCycleCount(Animation.INDEFINITE);
+        playerI.setVolume(volumen);
+        playerI.play();           
+    }
+    
+    public static void stop(){
+        playerI.stop();
     }
 }

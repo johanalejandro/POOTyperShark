@@ -29,7 +29,7 @@ public class TiburonNegro extends Animal{
         int x, y;
         palabrasRestantes = (int)(Math.random()*2) + 2;
         x = (int)(Math.random()*250) + 600;
-        y = (int)(Math.random()*150) + 5;
+        y = (int)(Math.random()*Constantes.SCREEN_HEIGHT/2);
         this.setPosicionInicial(x, y);
         this.setAnimal(Oceano.getPalabraRandom(), new ImageView(new Image("/imagenes/blackshark.png",Constantes.WIDTH_SHARK,Constantes.HEIGHT_SHARK,true,true)));
     }
@@ -47,7 +47,7 @@ public class TiburonNegro extends Animal{
                 tl = new Timeline();
                 tl.setCycleCount(1);
                 tl.getKeyFrames().add(new KeyFrame(Duration.seconds(1), e->{
-                        //que ponemos aqui?
+                        Oceano.actualizarOceano();
                     },
                     new KeyValue(this.getCuerpo().translateYProperty(),this.getCuerpo().getTranslateY()-30.05,Interpolator.SPLINE(0.295,0.800,0.305,1.000)),
                     new KeyValue(this.getCuerpo().opacityProperty(), 0f)
@@ -69,7 +69,7 @@ public class TiburonNegro extends Animal{
 
     @Override
     protected double getLimite() {
-        return -575;
+        return -1*Constantes.SCREEN_WIDTH/2 +50;
     }
 
     

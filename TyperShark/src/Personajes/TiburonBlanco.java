@@ -17,10 +17,10 @@ public class TiburonBlanco extends Animal{
     private final int puntos = 50;    
     
     public TiburonBlanco(){        
-        super(65);
+        super(Constantes.VEL_TIBURON);
         int x, y;
         x = (int)(Math.random()*200) + 600;
-        y = (int)(Math.random()*150) + 5;
+        y = (int)(Math.random()*Constantes.SCREEN_HEIGHT/2);
         this.setPosicionInicial(x, y);
         this.setAnimal(Oceano.getPalabraRandom(), new ImageView(new Image("/imagenes/shark.png",Constantes.WIDTH_SHARK,Constantes.HEIGHT_SHARK,true,true)));
     }
@@ -32,6 +32,6 @@ public class TiburonBlanco extends Animal{
 
     @Override
     protected double getLimite() {
-        return -575;
+        return -1*Constantes.SCREEN_WIDTH/2 +50;
     }
 }

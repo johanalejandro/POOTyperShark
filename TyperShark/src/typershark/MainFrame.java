@@ -84,3 +84,17 @@ public class MainFrame {
     public Buceador getBuzo(){
         return jugador;
     }
+    
+    public int getVidas(){
+        return lifeCount;
+    }
+    
+    public String getPuntaje(){
+        return level.getScore();
+    }
+
+    public Level getLevel(){
+        return level;
+    }
+}
+

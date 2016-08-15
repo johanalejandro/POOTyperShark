@@ -97,7 +97,8 @@ public class Level extends Thread{
     
     public void upLevel(){
         Nnivel.set(Nnivel.get()+1);
-        grupo = 0;
+        oceano.setVelocidades(Nnivel.get());
+        grupo = 1;
     }
     
     public BorderPane getRoot(){
@@ -107,11 +108,7 @@ public class Level extends Thread{
     private void crearInfoPanel() {
         vidas = new HBox();
         Font f = new Font("Impact", 18);
-        ImageView img = new ImageView(new Image("/imagenes/diver.gif"));
-        img.setFitWidth(150);
-        img.setFitHeight(70);
-        img.resize(70, 20);
-        root.setLeft(img);
+        root.setLeft(oceano.getBuceador().getImagen());
         infoPanel = new HBox();
         infoPanel.setSpacing(30);
         nivelCaption = new Text(" NIVEL  ");

@@ -14,7 +14,7 @@ import typershark.Constantes;
  */
 public class Buceador {
     private SimpleIntegerProperty vidas;
-    private String nombre;
+    private SimpleStringProperty nombre;
     private SimpleIntegerProperty puntaje;
     private ImageView img;
     
@@ -27,10 +27,15 @@ public class Buceador {
         img.resize(70, 20);
     }
     
+    
     public ImageView getImagen(){
         return img;
     }
 
+    public String getNombre() {
+	
+        return nombre.get();
+    }
     public SimpleIntegerProperty getVidas() {
         return vidas;
     }
@@ -43,8 +48,15 @@ public class Buceador {
         puntaje.set(puntaje.get()+puntos);
     }
 
-    public SimpleIntegerProperty getPuntaje() {
+    public SimpleIntegerProperty getPuntajeProperty() {
         return puntaje;
     }
     
+    
+    public int getPuntaje() {
+	
+        return puntaje.get();
+    }
+    
+
 }

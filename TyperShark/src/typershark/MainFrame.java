@@ -71,3 +71,16 @@ public class MainFrame {
             root.getChildren().add(leader.getRoot());
         }
     }
+    
+        public ImageView buzo(){
+        ImageView img = new ImageView(new Image("/imagenes/diver.gif"));
+        img.setFitWidth(150);
+        img.setFitHeight(70);
+        img.resize(70, 20);
+        return img;
+    }       
+    
+
+    public Buceador getBuzo(){
+        return jugador;
+    }

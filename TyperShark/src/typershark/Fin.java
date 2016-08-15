@@ -81,27 +81,7 @@ public class Fin {
         
     }
     
-    public void crearEventos(){
-        quit.setOnMousePressed(new EventHandler<MouseEvent>() {
-            public void handle(MouseEvent me) {
-                Platform.exit();
-                System.exit(0);
-            }
-        });
-        playAgain.setOnMousePressed(new EventHandler<MouseEvent>() {
-            public void handle(MouseEvent me) {
-                TyperShark.getMainFrame().startGame();
-            }
-        });
-        aceptar.setOnMousePressed(new EventHandler<MouseEvent>() {
-            public void handle(MouseEvent me) {
-                guardarResultado();
-                TyperShark.getMainFrame().changeState(0);
-                
-                
-            }
-        });
-    }
+    
     
     public void botones(){
         playAgain = new Button("Play Again");
@@ -182,6 +162,27 @@ public class Fin {
 
 
         
+    }
+    public void crearEventos(){
+        quit.setOnMousePressed(new EventHandler<MouseEvent>() {
+            public void handle(MouseEvent me) {
+                Platform.exit();
+                System.exit(0);
+            }
+        });
+        playAgain.setOnMousePressed(new EventHandler<MouseEvent>() {
+            public void handle(MouseEvent me) {
+                TyperShark.getMainFrame().startGame();
+            }
+        });
+        aceptar.setOnMousePressed(new EventHandler<MouseEvent>() {
+            public void handle(MouseEvent me) {
+                guardarResultado();
+                TyperShark.getMainFrame().changeState(0);
+                
+                
+            }
+        });
     }
     
   

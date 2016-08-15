@@ -27,6 +27,12 @@ public class Buceador {
         img.resize(70, 20);
     }
     
+    public Buceador (String s1, Integer s2) {
+
+        nombre = new SimpleStringProperty(s1);
+        puntaje = new SimpleIntegerProperty(s2);
+    }
+    
     
     public ImageView getImagen(){
         return img;

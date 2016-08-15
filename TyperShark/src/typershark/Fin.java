@@ -95,7 +95,7 @@ public class Fin {
         });
         aceptar.setOnMousePressed(new EventHandler<MouseEvent>() {
             public void handle(MouseEvent me) {
-                //  AQUI VA FUNCION QUE GUARDA EN LEADER BOARD
+                guardarResultado();
                 TyperShark.getMainFrame().changeState(0);
                 
                 

@@ -59,6 +59,28 @@ public class Fin {
 
     }
     
+    public void guardarResultado(){
+        String cadena = text.getText()+"/"+resultado.getText();
+        FileWriter fichero = null;
+        PrintWriter pw = null;
+        try{
+            fichero = new FileWriter("archivos/scores.txt",true);
+            pw = new PrintWriter(fichero);
+            pw.println(cadena);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+           try {
+           if (null != fichero)
+              fichero.close();
+           } catch (Exception e2) {
+              e2.printStackTrace();
+           }
+        } 
+        
+    }
+    
     public void crearEventos(){
         quit.setOnMousePressed(new EventHandler<MouseEvent>() {
             public void handle(MouseEvent me) {

@@ -1,15 +1,5 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package Personajes;
 
-/**
- *
- * @author Dario Ntn Carpio
- */
- 
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.animation.Interpolator;
@@ -28,6 +18,12 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.util.Duration;
 
+/**
+ * Clase Animal: representacion de los animales marinos del juego.
+ * Con la cual los animales se pueden crear, mover y destruir.
+ * @version 1.0
+ * @author Johan Canales, Dario Carpio, Kevin Palacios
+ */
 public abstract class Animal extends Thread {
     
     
@@ -41,7 +37,7 @@ public abstract class Animal extends Thread {
     private int puntos;
     private int velocidad;
     private boolean cruzo;
-    
+
     public Animal(int millis){
         super("animal");
         this.vida = true;

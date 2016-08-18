@@ -37,7 +37,24 @@ import javafx.util.Callback;
  * @author johanalejandro
  */
 public class LeaderBoard {
-    static Map<String, Integer> sortedMap;
+    private TableView<Map.Entry<String,Integer>> table;
+    private ObservableList<Map.Entry<String, Integer>> items;
+    private VBox vbox;
+    private StackPane panel;
+    private Button volver;
+    private Map<String, Integer> map,sortedMap;
+    private ImageView background;
+    private TableColumn<Map.Entry<String, Integer>, String> nombreCol,puntajeCol;
+    
+    public Leaderboard(){
+        cargar();
+        crearTabla();
+        crearBotones();
+        darEstilo();   
+        
+        
+        
+    }
 private static Map<String, Integer> sortByValue(Map<String, Integer> mapaDesordenado) {
 
   
@@ -109,5 +126,87 @@ public void addScore(String nombrePlayer, int puntaje){
     }
         
     
+    }
+    public void crearTabla(){
+        Label label = new Label("LEADERBOARD");
+        label.setStyle("-fx-font-size: 36pt;" +
+                    "    -fx-font-family: \"Segoe UI Semibold\";" +
+                    "    -fx-text-fill: DarkGreen;" );
+        HBox labelHb = new HBox();
+        labelHb.setAlignment(Pos.CENTER);
+        labelHb.getChildren().add(label);
+
+        nombreCol = new TableColumn<>("NOMBRES");
+        nombreCol.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<Map.Entry<String, Integer>, String>, ObservableValue<String>>() {
+            @Override
+            public ObservableValue<String> call(TableColumn.CellDataFeatures<Map.Entry<String, Integer>, String> p) {
+                return new SimpleStringProperty(p.getValue().getKey());
+            }
+        });
+        puntajeCol = new TableColumn<>("PUNTAJE");
+        puntajeCol.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<Map.Entry<String, Integer>, String>, ObservableValue<String>>() {
+            @Override
+            public ObservableValue<String> call(TableColumn.CellDataFeatures<Map.Entry<String, Integer>, String> p) {
+                return new SimpleStringProperty(String.valueOf(p.getValue().getValue()));
+            }
+        });
+        table = new TableView<>(items);
+        table.getColumns().setAll(nombreCol,puntajeCol);
+        table.setPrefHeight(500);
+        table.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
+        background = new ImageView(new Image("/imagenes/background1.png"));
+        background.setFocusTraversable(true);
+        background.setFitWidth(Constantes.SCREEN_WIDTH);
+        background.setFitHeight(Constantes.SCREEN_HEIGHT);
+        vbox = new VBox();
+        vbox.setPrefHeight(Constantes.SCREEN_HEIGHT -  75);
+        panel = new StackPane(background,vbox);
+        vbox.setSpacing(10);
+        vbox.setAlignment(Pos.TOP_CENTER);
+        vbox.getChildren().addAll(labelHb, table);
+    }
+    public void crearBotones(){
+        volver = new Button("Back");
+        volver.setEffect(new DropShadow());
+        volver.setFont(new Font("Impact", 18));
+        volver.setMinSize(120, 30);
+        volver.setTooltip(new Tooltip("volver al Menu"));
+        vbox.getChildren().add(volver);
+        volver.setOnMousePressed(new EventHandler<MouseEvent>() {
+            public void handle(MouseEvent me) {
+                TyperShark.getMainFrame().changeState(0);
+                
+                
+            }
+        });
+        
+    }
+    public void darEstilo(){
+        table.setStyle("-fx-font-size: 8pt;" +
+                       "-fx-font-family: verdana;"+
+                       "-fx-border-width: 0 0 0 0;" +
+                       "-fx-background-color: transparent;" +
+                        "-fx-border-color: transparent;"+
+                        "-fx-background-color: transparent;"+
+                        "-fx-control-inner-background: transparent;\n" +
+                        "-fx-background-color: transparent;\n" +
+                        "-fx-table-cell-border-color: transparent;\n" +
+                        "-fx-table-header-border-color: transparent;\n"  );
+        nombreCol.setStyle("-fx-font-size: 17pt;" +
+                "    -fx-font-family: Impact;" +
+                "    -fx-text-fill: Chartreuse ;" +
+                "    -fx-alignment: BASELINE_CENTER;"+
+                "    -fx-background-color: transparent;"
+        );
+        puntajeCol.setStyle("-fx-font-size: 17pt;" +
+                "    -fx-font-family: Impact;" +
+                "    -fx-text-fill: Chartreuse ;" +
+                "    -fx-alignment: BASELINE_CENTER;"+
+                "    -fx-background-color: transparent;");
+       
+    }
+    
+    public StackPane getRoot(){
+        return panel;
     }
 }
